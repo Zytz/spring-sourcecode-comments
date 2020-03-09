@@ -1,0 +1,9 @@
+@startuml
+
+title beanfactory的子流程
+AbstractApplicationContext -> AbstractApplicationContext:obtainFreshBeanFactory
+AbstractApplicationContext-> AbstractRefreshableApplicationContext: refreshBeanFactory
+ AbstractRefreshableApplicationContext-->AbstractRefreshableApplicationContext :createBeanFactory
+ AbstractApplicationContext -> AbstractRefreshableApplicationContext:obtainFreshBeanFactory: getBeanFactory
+AbstractRefreshableApplicationContext-->AbstractApplicationContext: ConfigurableListableBeanFactory
+@enduml
