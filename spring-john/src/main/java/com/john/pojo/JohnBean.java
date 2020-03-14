@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
  * @description:
  */
 @Service
+
 public class JohnBean implements InitializingBean {
 	@Autowired
 	private ShuyunBean shuyunBean;

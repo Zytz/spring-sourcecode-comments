@@ -320,7 +320,7 @@ public class HandlerMethod {
 		if (this.bean instanceof String) {
 			Assert.state(this.beanFactory != null, "Cannot resolve bean name without BeanFactory");
 			String beanName = (String) this.bean;
-			handler = this.beanFactory.getBean(beanName);
+			handler = this.beanFactory.getBean(beanName); //handle的beanName 是从http servelet中加载到的
 		}
 		return new HandlerMethod(this, handler);
 	}

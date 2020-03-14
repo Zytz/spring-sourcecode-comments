@@ -779,13 +779,13 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		ModelAndView mav;
 		checkRequest(request);
 
-		// Execute invokeHandlerMethod in synchronized block if required.
+		// Execute invokeHandlerMethod in synchronized block if required. 判断当前是否是否需要支持session内的同步处理
 		if (this.synchronizeOnSession) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
-				Object mutex = WebUtils.getSessionMutex(session);
+				Object mutex = WebUtils.getSessionMutex(session);//为当前session创造唯一key
 				synchronized (mutex) {
-					mav = invokeHandlerMethod(request, response, handlerMethod);
+					mav = invokeHandlerMethod(request, response, handlerMethod);//顺序执行方法
 				}
 			}
 			else {
@@ -857,10 +857,10 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 
 			ServletInvocableHandlerMethod invocableMethod = createInvocableHandlerMethod(handlerMethod);
 			if (this.argumentResolvers != null) {
-				invocableMethod.setHandlerMethodArgumentResolvers(this.argumentResolvers);
+				invocableMethod.setHandlerMethodArgumentResolvers(this.argumentResolvers);//方法参数解析器
 			}
 			if (this.returnValueHandlers != null) {
-				invocableMethod.setHandlerMethodReturnValueHandlers(this.returnValueHandlers);
+				invocableMethod.setHandlerMethodReturnValueHandlers(this.returnValueHandlers);//返回值解析器
 			}
 			invocableMethod.setDataBinderFactory(binderFactory);
 			invocableMethod.setParameterNameDiscoverer(this.parameterNameDiscoverer);
@@ -889,7 +889,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 				});
 				invocableMethod = invocableMethod.wrapConcurrentResult(result);
 			}
-
+			//对请求参数进行处理，调用目标的的方法
 			invocableMethod.invokeAndHandle(webRequest, mavContainer);
 			if (asyncManager.isConcurrentHandlingStarted()) {
 				return null;
@@ -946,7 +946,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		attrMethod.setDataBinderFactory(factory);
 		return attrMethod;
 	}
-
+	//获取容器中全局配置的initBinder和当前handleMethod所对应的controller中配置的initBinder，用于参数绑定
 	private WebDataBinderFactory getDataBinderFactory(HandlerMethod handlerMethod) throws Exception {
 		Class<?> handlerType = handlerMethod.getBeanType();
 		Set<Method> methods = this.initBinderCache.get(handlerType);

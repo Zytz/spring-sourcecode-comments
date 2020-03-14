@@ -471,7 +471,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 			return null;
 		}
 
-		// Check for special "redirect:" prefix.
+		// Check for special "redirect:" prefix. 页面跳转
 		if (viewName.startsWith(REDIRECT_URL_PREFIX)) {
 			String redirectUrl = viewName.substring(REDIRECT_URL_PREFIX.length());
 			RedirectView view = new RedirectView(redirectUrl,
@@ -483,7 +483,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 			return applyLifecycleMethods(REDIRECT_URL_PREFIX, view);
 		}
 
-		// Check for special "forward:" prefix.
+		// Check for special "forward:" prefix. 重定向
 		if (viewName.startsWith(FORWARD_URL_PREFIX)) {
 			String forwardUrl = viewName.substring(FORWARD_URL_PREFIX.length());
 			InternalResourceView view = new InternalResourceView(forwardUrl);

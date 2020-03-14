@@ -196,7 +196,7 @@ public class AntPathMatcher implements PathMatcher {
 		return doMatch(pattern, path, false, null);
 	}
 
-	/**
+	/** 根据路径匹配。。。。
 	 * Actually match the given {@code path} against the given {@code pattern}.
 	 * @param pattern the pattern to match against
 	 * @param path the path String to test
@@ -210,7 +210,7 @@ public class AntPathMatcher implements PathMatcher {
 		if (path.startsWith(this.pathSeparator) != pattern.startsWith(this.pathSeparator)) {
 			return false;
 		}
-
+		//将路径中的分隔符分开；/user/wenwei/inpovement/--->user;wenwei；inpovement分成这样的数组
 		String[] pattDirs = tokenizePattern(pattern);
 		if (fullMatch && this.caseSensitive && !isPotentialMatch(path, pattDirs)) {
 			return false;
@@ -223,10 +223,10 @@ public class AntPathMatcher implements PathMatcher {
 		int pathIdxStart = 0;
 		int pathIdxEnd = pathDirs.length - 1;
 
-		// Match all elements up to the first **
+		// Match all elements up to the first ** ，匹配任意字符
 		while (pattIdxStart <= pattIdxEnd && pathIdxStart <= pathIdxEnd) {
 			String pattDir = pattDirs[pattIdxStart];
-			if ("**".equals(pattDir)) {
+			if ("**".equals(pattDir)) { //
 				break;
 			}
 			if (!matchStrings(pattDir, pathDirs[pathIdxStart], uriTemplateVariables)) {
