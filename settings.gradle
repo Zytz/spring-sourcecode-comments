@@ -30,4 +30,6 @@ rootProject.children.each {project ->
 	project.buildFileName = "${project.name}.gradle"
 }
 include 'spring-john'
+include 'spring-mvc-john'
+include 'mvcdemo'
 
